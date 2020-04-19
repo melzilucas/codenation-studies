@@ -1,0 +1,54 @@
+
+import pandas as pd
+import numpy as np
+
+black_friday = pd.read_csv("black_friday.csv")
+
+ product_category_3= list(black_friday[black_friday['Product_Category_3'].isna()].index)
+
+def q1():
+    return black_friday.shape
+q1()
+
+def q2():
+    return int(black_friday[(black_friday['Gender'] == 'F') & (black_friday['Age'] == '26-35')]['User_ID'].count())
+q2()
+
+def q3():
+    return black_friday['User_ID'].nunique()
+q3()
+
+def q4():
+    return black_friday.dtypes.nunique()
+q4()
+
+def q5():
+    return ((black_friday.shape[0])-(black_friday.dropna().shape[0]))/(black_friday.shape[0]) 
+q5()
+
+def q6():
+    return (int(black_friday.isna().sum().max()))
+q6()
+
+def q7():
+    return (int(black_friday ['Product_Category_3'].mode()))
+q7()
+
+def q8():
+    purchase_norm = black_friday['Purchase'] - black_friday['Purchase'].min()
+    purchase_range = black_friday['Purchase'].max()-black_friday['Purchase'].min()
+    return float(np.mean(purchase_norm)/(purchase_range))
+q8()
+
+def q9():
+    purchase_pad = (black_friday['Purchase'] - black_friday['Purchase'].mean()) / black_friday['Purchase'].std()
+    return int(((purchase_pad >= -1) & (purchase_pad <= 1)).sum())
+q9()
+
+def q10():
+    product_category_2= list(black_friday[black_friday['Product_Category_2'].isna()].index)
+    product_category_3= list(black_friday[black_friday['Product_Category_3'].isna()].index)
+    return bool (np.isin(product_category_2,product_category_3).all())
+q10()
+
+
